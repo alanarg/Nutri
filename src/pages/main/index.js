@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import graos from '../alimentos/cereais';
@@ -142,7 +141,7 @@ export default class Alimentos extends Component {
                                 </Expand>
                                 
 
-                                <FullScreenDialog alimento={alimento.description}   id={alimento.id}/>   
+                                <FullScreenDialog alimento={alimento.description}   atributos={alimento.attributes}/>   
 
 
 
@@ -174,10 +173,5 @@ export default class Alimentos extends Component {
         
     }
 }
-
-
-
-
-
 
 

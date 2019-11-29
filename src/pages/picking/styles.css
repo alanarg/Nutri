@@ -1,0 +1,8 @@
+.image{
+    width: 350px;
+    height: 350px;
+    border-radius: 20px;
+    border-width: 20;
+    border-color: chartreuse;
+    max-width:100%;
+}

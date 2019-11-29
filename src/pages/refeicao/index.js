@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useState} from 'react';
+import {useSelector} from 'react-redux';
 import Full from '../editfood/index';
 import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,23 +19,16 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import foto from "./addphoto.jpg";
-
+import {connect} from 'react-redux';
 
 import Expand from '@material-ui/icons/ExpandMoreSharp';
 import FullScreenDialog from '../popup';
 import { borderColor } from '@material-ui/system';
 
 
-const pratos = [
 
-  {
-    "id": 1, "imageingest": frango, "title": "tradicional 1", "descript":["Arroz","Alface","Feijão","Batata frita"]
-      
 
-    
-  },
 
-];
 
 const styles = theme => ({
   color: {
@@ -102,11 +96,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const CustomizedDialogs = (props) => {
+const CustomizedDialogs = () => {
+  const comidas = useSelector(state=> state.comidas);
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
+console.log(comidas);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -137,13 +132,13 @@ const CustomizedDialogs = (props) => {
           </ListItem>
           <Divider />
           <a name="refeição"></a>
-          {pratos.map(prato => (
+          {comidas.map(prato => (
             <ListItem button>
-              <img src={prato.imageingest} className={classes.imagens} />
+              <img src={prato.image} className={classes.imagens} />
 
               <ListItemText primary="         " />
               <ListItemText>
-                <h1>{prato.title}</h1>
+                <h3>{prato.title}</h3>
                 <p>{prato.descript}</p>
               </ListItemText>
               <Full />
@@ -160,14 +155,14 @@ const CustomizedDialogs = (props) => {
 
             <i>Cafe</i>
           </DialogTitle>
-          {pratos.map(prato => (
+          {comidas.map(prato => (
             <ListItem button>
-              <img src={prato.imageingest} className={classes.imagens} />
+              <img src={prato.image} className={classes.imagens} />
 
               <ListItemText primary="         " />
               <ListItemText>
-                {/* <h1>{prato.title}</h1> */}
-                {/* <p>{prato.descript}</p> */}
+                <h3>{prato.title}</h3>
+                <p>{prato.descript}</p>
               </ListItemText>
               <Full nome={prato.title} />
               <Divider />
@@ -192,7 +187,6 @@ const CustomizedDialogs = (props) => {
 
   )
 }
-
 
 export default CustomizedDialogs;
 

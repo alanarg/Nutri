@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 import TextField2 from '@material-ui/core/TextField';
 import TextField3 from '@material-ui/core/TextField';
 import TextField4 from '@material-ui/core/TextField';
@@ -19,6 +19,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Pratos from './pratos.jpg';
 import './css.css';
 import Logar from './Google_Face/index';
+import api from '../../services/api';
 
 function Copyright() {
   return (
@@ -51,7 +52,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    
+
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -63,114 +64,118 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const SignUp = () =>{
+
+
+const SignIn = ({ history }) => {
   const classes = useStyles();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    await api.post('/session', {
+      email: email,
+      password: password
+    }).then(res => {
+
+      if (res.data.token !== '') {
+        history.push(`/grupos/${res.data.token}`);
+
+      }
+
+
+
+
+
+    });
+
+
+
+
+
+
+  }
+  function handleAssign(e) {
+    e.preventDefault();
+  }
+
+
 
   return <React.Fragment>
     <div class="bg">
-    <Grid container component="main" className={classes.root} class="la">
-      <CssBaseline />
-      <Grid item xs={false} sm={2} md={4} className={classes.image}  />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar class="perfil">
+      <Grid container component="main" className={classes.root} class="la">
+        <CssBaseline />
+        <Grid item xs={false} sm={2} md={4} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <Avatar class="perfil">
               <img src="./logoapp.jpg" width="100%"></img>
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Cadastro
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Entrar
           </Typography>
-          Nome
-          <TextField/>
-          CPF
-          <TextField2/>
-         
+            <div >
+              
+              <form  onSubmit={handleSubmit}>
+                <h3 align="center">E-mail</h3>
+          <input value={email} class="input" onChange={e => setEmail(e.target.value)} />
+          <br></br>
+                <h3 align="center" >Senha</h3>
+          <input value={password} type="password" class="input" onChange={e => setPassword(e.target.value)} />
+              <b></b>
+                <button type="submit" class="b">Logar</button>
 
-          
-          <Button onClick={this.cadastrar}></Button>
-          
-          
-        </div>
-      </Grid>
-    </Grid>
-    </div>
-    </React.Fragment>
-  
-  
 
-}
-
-const SignIn = () =>{
-  const classes = useStyles();
-  const signUp = ()=>{
-    return (<SignUp/>);
-  }
-  
-  
-
-  return <React.Fragment>
-    <div class="bg">
-    <Grid container component="main" className={classes.root} class="la">
-      <CssBaseline />
-      <Grid item xs={false} sm={2} md={4} className={classes.image}  />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar class="perfil">
-              <img src="./logoapp.jpg" width="100%"></img>
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
+                <Box mt={5}>  </Box>
+              </form>
+            </div>
+           
+              <div >
+              <form onSubimit={handleAssign}>
+              <Typography component="h1" variant="h5">
+                Cadastrar
           </Typography>
-          E-mail
-          <TextField3/>
-          Senha
-          <TextField4/>
 
-          <Button onClick={signUp}>Logar</Button>
-           <Logar/>
-            <Box mt={5}>  </Box>
-          
-        </div>
-      </Grid>
-    </Grid>
+                  <h3 align="center">Nome</h3> 
+                <input class="input1" value={email} onChange={e => setEmail(e.target.value)} />
+                  <br></br>
+                  <h3 align="center">E-mail</h3> 
+          <input class="input2" value={email} onChange={e => setEmail(e.target.value)} />
+          <br></br>
+                  <h3 align="center">Senha</h3>
+          <input class="input3" value={password} type="password" onChange={e => setPassword(e.target.value)} />
+
+              <br></br>
+                  <button type="submit" class="b">Logar</button>
+                </form>
+                <Logar />
+              </div>
+              </div>
+              
+        </Grid>
+        </Grid>
+        
     </div>
-    </React.Fragment>
+  </React.Fragment>
+
+      }
+      
+  export default SignIn;
   
-}
-
-
-export default class Login extends Component {
-  constructor(props){
-    super(props);
-   
-  }
-  componentDidMount() {
-
-    this.loadProducts();
-
-  }
-
-  loadProducts = async () => {
-
-
-
-
-
-
-
-  };
-  render() {
-
-    return (
-      <SignIn />
-
-    );
-
-  }
-
-
-
-
-
-
-
-}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

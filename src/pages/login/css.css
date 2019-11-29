@@ -8,4 +8,41 @@
     background: 'linear-gradient(45deg, #76FF03 30%,  #FFFF00 90%)',
 
 }
+.input{
+    align-self: center;
+    border-radius: 10;
+    border-color: chartreuse;
+    width: 100%;
 
+}
+.input1{
+    align-self: center;
+    border-radius: 10;
+    border-color: chartreuse;
+    width: 100%;
+
+}
+.input2{
+    align-self: center;
+    border-radius: 10;
+    border-color: chartreuse;
+    width: 100%;
+
+}
+.input3{
+    align-self: center;
+    border-radius: 10;
+    border-color: chartreuse;
+    width: 100%;
+
+}
+
+
+.login{
+    align-content: center;
+}
+.b{
+    border-radius: 20;
+    background-color: lawngreen;
+
+}

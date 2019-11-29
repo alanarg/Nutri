@@ -24,7 +24,7 @@ const oleos =
     "qty": "NA",
     "unit": "mg"
     },
-    "carbohydrate": {
+    "carbohydrate'": {
     "qty": "NA",
     "unit": "g"
     },

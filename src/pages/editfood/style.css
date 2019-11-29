@@ -1,0 +1,15 @@
+.grid-container{
+    display:grid;
+}
+.image{
+    width: 500px;
+    height: 500px;
+    border-radius: 20px;
+    border-width: 100px;
+}
+.t{
+    font-size: 70px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+

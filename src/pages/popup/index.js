@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,24 +13,16 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
-import graos from '../alimentos/cereais';
-import verde from '../alimentos/verduras';
-import frutas from '../alimentos/frutas';
-import gorduras from '../alimentos/gorduras';
-import pescados from '../alimentos/pescados';
-import carnes from '../alimentos/carnes';
-import leite from '../alimentos/laticínios';
-import bebidas from '../alimentos/bebidas';
-import ovos from '../alimentos/ovos';
-import candys from '../alimentos/doces';
-import misce from '../alimentos/miscelaneas';
-import industri from '../alimentos/industry';
-import prep from '../alimentos/preparados';
-import legumes from '../alimentos/legumes';
-import nozes from '../alimentos/nozes';
+import prot from './img/proteina.svg';
+import gordura from './img/gorduras.png';
+import fibra from './img/fibra.jpg';
+import ener from './img/energia.png';
+import carbo from './img/carbo.png';
 import Slide from '@material-ui/core/Slide';
 import Alimentos from '../main';
-import Chart from '../maingraph/index'
+import Chart from '../maingraph/index';
+import Edit from '../editfood/index';
+
 import './styles.css';
 
 const useStyles = makeStyles(theme => ({
@@ -45,8 +37,10 @@ const useStyles = makeStyles(theme => ({
   title: {
     marginLeft: theme.spacing(2),
     flex: 1,
+    color: 'dark'
   },
 }));
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -54,26 +48,81 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function FullScreenDialog(props) {
+
+
+    
+  // const [proteinas, setProt] = useState[0];
+  // let carbo = props.atributos.carbohydrate.qty; 
   const classes = useStyles();
-  const id_alimento = props.id;
   const [open, setOpen] = React.useState(false);
-  const total = props.carbohydrates+props.protein+props.gorduras;
+  
   function handleClickOpen() {
     setOpen(true);
   }
-
+  
   function handleClose() {
     setOpen(false);
   }
+   
+  
 
-  // const { protein, carbohydrate, fiber } = props.atributo;
+    if(typeof props.atributos.protein === 'undefined'){
+      var proteinas = 0;
+    }else{
+      var proteinas = Object.values(props.atributos.protein);
 
-  return (
+    }
+    if(typeof props.atributos.carbohydrate === 'undefined' ){
+      var carboidratos = 0;
+      
+
+    }else{
+    
+      var carboidratos = Object.values(props.atributos.carbohydrate);
+
+    }if(typeof props.atributos.lipid === 'undefined' ){
+      var gorduras = 0;
+      
+
+    }else{
+    
+      var gorduras = Object.values(props.atributos.lipid);
+
+    }if(typeof props.atributos.fiber === 'undefined' ){
+      var fibras = 0;
+      
+
+    }else{
+    
+      var fibras = Object.values(props.atributos.fiber);
+
+    }if(typeof props.atributos.energy === 'undefined' ){
+      var energia = 0;
+      
+
+    }else{
+    
+      var energia = Object.values(props.atributos.energy);
+
+    }
+    const id_alimento = props.id;
+   
+    // const atributos = this.props.atributos.attributes;
+    // console.log(atributos);   
+    return(
+    
     <div>
       <Button variant="outlined" color={classes.color} onClick={handleClickOpen}>
         Descrição
       </Button>
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+        {/* {alert(proteinas)} */}
+
+        {console.log(props.atributos.lipid)}
+
+        {console.log( props.atributos.fiber)}
+
+          {console.log( props.atributos.energy)} 
         <AppBar className={classes.color}>
           <Toolbar className={classes.color} >
             <IconButton edge="start"  onClick={handleClose} aria-label="close">
@@ -85,18 +134,31 @@ export default function FullScreenDialog(props) {
                 
               
             </Typography>
-            <Button  className={classes.color} onClick={handleClose}>
-              save
-            </Button>
+            <Edit  className={classes.color} onClick={handleClose} ali={props.alimento} >
+             
+            </Edit>
           </Toolbar>
         </AppBar>
         <List className={classes.root}>
+          
+      <ListItem alignItems="center">
+      </ListItem>
+      <Divider variant="inset" component="li" />
+      <ListItem alignItems="center">
+      </ListItem>
+      <Divider variant="inset" component="li" />
+      <ListItem alignItems="center">
+      </ListItem>
+      <Divider variant="inset" component="li" />
+      <ListItem alignItems="flex-start">
+      </ListItem>
+      <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <Avatar alt="icone prot" src={prot} />
         </ListItemAvatar>
         <ListItemText
-          primary="{props.proteina}"
+          primary="Proteínas"
           secondary={
             <React.Fragment>
               <Typography
@@ -105,17 +167,43 @@ export default function FullScreenDialog(props) {
                 className={classes.inline}
                 color="textPrimary"
               >
-                Ali Connors
               </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
+              {'Proteínas a cem gramas'}
             </React.Fragment>
           }
         />
+        
+          {proteinas}
+
       </ListItem>
       <Divider variant="inset" component="li" />
+
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+          <Avatar alt="Cindy Baker" src={carbo} />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Carboidratos"
+          secondary={
+            <React.Fragment>
+              <Typography
+                component="span"
+                variant="body2"
+                className={classes.inline}
+                color="textPrimary"
+              >
+              </Typography>
+              {'Carboidratos a cem gramas'}
+            </React.Fragment>
+          }
+        />
+          {carboidratos}
+      </ListItem>
+      <Divider variant="inset" component="li" />
+
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Cindy Baker" src={gordura} />
         </ListItemAvatar>
         <ListItemText
           primary="Gorduras"
@@ -127,20 +215,22 @@ export default function FullScreenDialog(props) {
                 className={classes.inline}
                 color="textPrimary"
               >
-                shuahs
               </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
+              {'Gorduras a cem gramas'}
             </React.Fragment>
           }
         />
+                {gorduras}
+
       </ListItem>
       <Divider variant="inset" component="li" />
+
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+          <Avatar alt="Cindy Baker" src={ener} />
         </ListItemAvatar>
         <ListItemText
-          primary="Oui Oui"
+          primary="Energia"
           secondary={
             <React.Fragment>
               <Typography
@@ -149,17 +239,45 @@ export default function FullScreenDialog(props) {
                 className={classes.inline}
                 color="textPrimary"
               >
-                Sandra Adams
               </Typography>
-              {' — Do you have Paris recommendations? Have you ever…'}
+              {' A cem gramas'}
             </React.Fragment>
           }
         />
+                <div>{energia[0]}kcal</div>
+             
+
       </ListItem>
+
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Cindy Baker" src={fibra} />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Fibras"
+          secondary={
+            <React.Fragment>
+              <Typography
+                component="span"
+                variant="body2"
+                className={classes.inline}
+                color="textPrimary"
+              >
+              </Typography>
+              {'Fibras a cem gramas'}
+            </React.Fragment>
+          }
+        />
+        {fibras}
+
+      </ListItem>
+      <Divider variant="inset" component="li" />
+
     </List>
-         <Chart atributos={props.carboidratos} />
+         <Chart  carboidratos={carboidratos}  proteinas={proteinas} gorduras={gorduras} />
       </Dialog>
     </div>
-  );
+    )
+  
 }
 

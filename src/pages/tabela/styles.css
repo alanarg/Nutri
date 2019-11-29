@@ -1,0 +1,13 @@
+.image{
+    width: 350px;
+    height: 350px;
+    border-radius: 20px;
+    border-width: 20;
+    border-color: chartreuse;
+    max-width:100%;
+}
+.b{
+    background: linear-gradient(45deg, #76FF03 30%,  #FFFF00 90%);
+    height: 700px;
+
+}

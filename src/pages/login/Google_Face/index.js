@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
-import Profile from "../../user/index";
+import Profile from "../../perfil/index";
 import Grups from "../../grupos/index";
 import { Link } from 'react-router-dom';
 
@@ -39,7 +39,8 @@ export default class Facebook extends Component {
       
 
       fbContent = (
-        <Link to={"/grupos"}>aushaush</ Link>
+        <Profile atributos={fbContent} atrib={this.state}/>
+        
       );
     } else {
       fbContent = (
@@ -55,6 +56,6 @@ export default class Facebook extends Component {
     
     
 
-    return <div><Profile atributos={fbContent} /></div>;
+  return <div>{fbContent}</div>;
   }
 }

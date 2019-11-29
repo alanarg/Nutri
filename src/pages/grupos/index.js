@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Chart from '../maingraph';
 import './styles.css';
 import AppBar from '@material-ui/core/AppBar';
@@ -19,8 +19,8 @@ import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import {useSelector} from 'react-redux';
 import Container from '@material-ui/core/Container';
-
 import cereal from "./img/Cereais.jpg";
 import verduras from "./img/legumes.jpg";
 import frutas from "./img/frutas.jpg";
@@ -40,6 +40,7 @@ import { Link } from 'react-router-dom';
 import CustomizedDialogs from '../refeicao/index';
 import { yellow } from '@material-ui/core/colors';
 import Header from '../Header';
+import Bar from '../progress/index';
 
 
 const cards = [{ id: 1, nome: "Cereais e Derivados", imagem: cereal },
@@ -58,12 +59,7 @@ const cards = [{ id: 1, nome: "Cereais e Derivados", imagem: cereal },
 { id: 14, nome: "Leguminosas e Derivados", imagem: leguminosas },
 { id: 15, nome: "Nozes e sementes", imagem: nozes }
 ];
-const cards2 = [
-  { nome: "Ingerir", imagem: foto },
 
-
-
-];
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -109,6 +105,12 @@ const useStyles = makeStyles(theme => ({
   cardContent: {
     flexGrow: 1,
   },
+  cont:{
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1)
+  },
   footer: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
@@ -117,9 +119,19 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const SampleFab = () => {
-
+const SampleFab = (props) => {
+  const comidas = useSelector(state=> state.comidas);
+  
+  console.log(props.prop);
   const classes = useStyles();
+  const cards2 = 
+    { nome: "Ingerir", image: foto };
+
+
+
+  
+ 
+
 
   return <React.Fragment>
 
@@ -128,21 +140,16 @@ const SampleFab = () => {
       {/* Hero unit */}
       <div className={classes.heroContent}>
         <Container maxWidth="xl">
-          <div class="um">
-            <div class="dois"></div>
-          </div>
-
-
+        
           <Container className={classes.cardGrid} maxWidth="xl">
             {/* End hero unit */}
             <Grid container spacing={2}>
-              {cards2.map(card2 => (
-                <Grid item key={card2} sm={4} >
-                  <Card className={classes.card2}>
+            <Grid item key={cards2} sm={4} >
+                  <Card className={classes.cards2}>
                     <CardMedia
 
                       className={classes.cardMedia}
-                      image={card2.imagem}
+                      image={cards2.image}
 
 
                     />
@@ -150,9 +157,6 @@ const SampleFab = () => {
                     <CardContent className={classes.cardContent}>
                       <Typography gutterBottom variant="h5" component="h2">
 
-                      </Typography>
-                      <Typography>
-                        {card2.nome}
                       </Typography>
                     </CardContent>
                     <CardActions>
@@ -165,11 +169,33 @@ const SampleFab = () => {
 
                 </Grid>
 
+              {comidas.map(card2 => (
+                <Grid item key={card2} sm={4} >
+                  <Card className={classes.card2}>
+                    <CardMedia
+
+                      className={classes.cardMedia}
+                      image={card2.image}
 
 
+                    />
+                
+                  <CardContent className={classes.cardContent}>
+                    
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {card2.hora+" ---- "+card2.title}
+                      </Typography>
+                      <Typography color="textSecondary" guetterBottom>
+                        {card2.data+" ---- "+card2.descript}
+                      </Typography>
+                      </CardContent>
 
-
-
+                    <CardActions>
+                    
+                      <CustomizedDialogs />
+                    </CardActions>
+                  </Card>
+                </Grid>
               ))}
 
             </Grid>
@@ -215,7 +241,7 @@ const SampleFab = () => {
                 <CardContent className={classes.cardContent}>
 
                   <Typography gutterBottom variant="h5" component="h2">
-
+                      
                   </Typography>
                   <Typography>
                     {/* //Pode ser uma descrição */}
@@ -286,6 +312,7 @@ function Copyright() {
 export default class Grups extends Component {
 
   componentDidMount() {
+
 
 
     this.loadProducts();

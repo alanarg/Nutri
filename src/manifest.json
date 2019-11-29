@@ -1,0 +1,16 @@
+{
+    "name": "MedalhaNutri",
+    "short_name": "MN",
+    "theme_color": "#2a0044",
+    "background_color": "#2a0044",
+    "display": "standalone",
+    "start_url": "./",
+    "icons": [
+      {
+        "src": "./public/logoapp.png",
+        "sizes": "150x150",
+        "type": "image/png"
+      }
+    ]
+  }
+  

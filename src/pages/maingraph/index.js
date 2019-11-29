@@ -19,7 +19,7 @@ export default class Chart extends Component {
                     'Gorduras'
                 ],
                 datasets: [{
-                    data: [props.numc, props.nump, props.numg],
+                    data: [100*props.carboidratos, 100*props.proteinas,100*props.gorduras],
                     backgroundColor: [
                     '#FF6384',
                     '#36A2EB',
@@ -55,8 +55,8 @@ export default class Chart extends Component {
 
         return (
             <Pie data={this.state.chartData}
-                width={100}
-                height={430}
+                width={50}
+                height={200}
                 options={{ maintainAspectRatio: false }} />
 
         );
